@@ -1,4 +1,16 @@
 
+# Set the execution policy to Unrestricted
+Set-ExecutionPolicy Unrestricted -Force
+
+# Install Active Directory Domain Services
+Install-WindowsFeature -Name AD-Domain-Services, DNS -IncludeManagementTools
+#Install-WindowsFeature -Name RSAT-DNS-Server                    
+           
+
+# Import ADDSDeployment module
+Import-Module ADDSDeployment
+
+
 # Check Google Chrome is already installed, verify the version, and updates/installs if required
 Write-Host "Checking Google Chrome installation..."
 try {
@@ -34,31 +46,6 @@ try {
 } catch {
     # Handle any errors during the Chrome check or installation
     Handle-Error "Failed to install or update Google Chrome. $_"
-}
-
-# Check and install RSAT tools (DNS, GPO, Active Directory Users and Computers) and installs them if not already present
-Write-Host "Checking RSAT tools installation..."
-$rsatFeatures = @(
-    "RSAT:ActiveDirectory-Domain-Services",  # Active Directory Users and Computers
-    "RSAT:DNS-Server",                      # DNS Server Administration
-    "RSAT:GroupPolicy-Management"           # Group Policy Management Tools
-)
-
-foreach ($feature in $rsatFeatures) {
-    try {
-        # Check the state of the feature (e.g., whether it's installed)
-        $featureInstalled = Get-WindowsCapability -Name $feature -Online | Select-Object -ExpandProperty State
-        if ($featureInstalled -eq "Installed") {
-            Write-Host "$feature is already installed."
-        } else {
-            # Install the feature if it is not already installed
-            Write-Host "Installing $feature..."
-            Add-WindowsCapability -Online -Name $feature | Out-Null
-        }
-    } catch {
-        # Handle any errors during RSAT installation
-        Handle-Error "Failed to install $feature. $_"
-    }
 }
 
 # Check and install PuTTY and proceeds with installation if it is not found
