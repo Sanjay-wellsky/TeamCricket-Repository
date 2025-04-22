@@ -5,3 +5,6 @@
 
 2. UnaccessedFileSweeper.ps1
     Powershell script to Move or Delete files from any location based on the last Access date
+
+2. SharedDirectoryInsights.ps1
+    Powershell script to export the shared directories to CSV file
