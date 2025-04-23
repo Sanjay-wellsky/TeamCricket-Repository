@@ -43,7 +43,7 @@ Efficiently manage and optimize storage of a virtual desktop environment and the
 ## How to Use
 - Clone the repository:
 
-  `git clone https://github.com/YourUsername/TeamCricket.git`
+  `gh repo clone Sanjay-wellsky/My-Repo`
 
 - Navigate to the desired script directory.> 
 - Execute the script using PowerShell with appropriate permissions.
